@@ -14,7 +14,7 @@ public class LocalStarter {
         PressScraper pressemitteilungen = new PressScraper();
         String channel = pressemitteilungen.scrape();
         System.out.println(channel);
-        writeToFile(channel, "/Pressemitteilungen_SenatHH.xml");
+        writeToFile(channel, "/pressreleases-example-output.xml");
     }
 
     private static void writeToFile(String content, String filename) {
