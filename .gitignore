@@ -1,6 +1,7 @@
-/build&push2aws.sh
+/.idea/
 /gradlew.bat
 /gradlew
 /gradle/
-/.idea/
 /.gradle/
+/build&push2aws.sh
+/build/
