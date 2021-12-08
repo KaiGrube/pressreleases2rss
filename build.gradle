@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.jsoup:jsoup:1.13.1'
+    compile group: 'com.amazonaws', name: 'aws-lambda-java-core', version: '1.2.1'
+    compile 'org.apache.commons:commons-text:1.8'
+    compile 'commons-codec:commons-codec:1.11'
+}
+
+task customFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'starter.LocalStarter'
+    }
+    baseName = 'awsFatJar'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
