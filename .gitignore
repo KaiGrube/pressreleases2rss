@@ -5,3 +5,4 @@
 /.gradle/
 /build&push2aws.sh
 /build/
+/target/
