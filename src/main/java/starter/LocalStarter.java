@@ -1,5 +1,6 @@
 package starter;
 
+import rss.RSSChannel;
 import scraper.PressScraper;
 
 import java.io.File;
@@ -12,9 +13,9 @@ public class LocalStarter {
 
     public static void main(String[] args) {
         PressScraper pressemitteilungen = new PressScraper();
-        String channel = pressemitteilungen.scrape();
-        System.out.println(channel);
-        writeToFile(channel, "/pressreleases-example-output.xml");
+        RSSChannel channel = pressemitteilungen.scrape();
+        System.out.println(channel.toXml());
+        writeToFile(channel.toXml(), "/pressreleases-example-output.xml");
     }
 
     private static void writeToFile(String content, String filename) {

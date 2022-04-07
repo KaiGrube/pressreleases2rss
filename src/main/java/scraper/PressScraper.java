@@ -26,7 +26,7 @@ public class PressScraper {
     private static final String TITLE = "Pressemitteilungen der Senatskanzlei Hamburg";
     private static final String DESCRIPTION = "https://www.hamburg.de/pressemeldungen";
 
-    public String scrape() {
+    public RSSChannel scrape() {
         JSoupClient client = new JSoupClient();
         String content = client.fetchFromWeb(LINK);
         Document document = Jsoup.parse(content);
@@ -87,6 +87,6 @@ public class PressScraper {
         }
         RSSChannel rssChannel = new RSSChannel(TITLE, LINK, DESCRIPTION);
         rssChannel.addItems(rssItemList);
-        return rssChannel.toString();
+        return rssChannel;
     }
 }

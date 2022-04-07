@@ -28,9 +28,8 @@ public class RSSChannel extends Object {
     public void addItems(List<RSSItem> rssItems) {
         this.rssItems.addAll(rssItems);
     }
-
-    @Override
-    public String toString() {
+    
+    public String toXml() {
         String header =
                 "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
                         "<rss version=\"2.0\">\n" +
@@ -44,7 +43,7 @@ public class RSSChannel extends Object {
                         "</rss>\n";
 
         StringBuilder xmlDocument = new StringBuilder(header);
-        rssItems.forEach(RSSItem -> xmlDocument.append(RSSItem));
+        rssItems.forEach(item -> xmlDocument.append(item.toXml()));
         xmlDocument.append(footer);
         return xmlDocument.toString();
     }

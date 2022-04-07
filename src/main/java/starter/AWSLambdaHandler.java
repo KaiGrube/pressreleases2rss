@@ -14,7 +14,7 @@ public class AWSLambdaHandler implements RequestHandler<Map<String, String>, Str
         LambdaLogger logger = context.getLogger();
         logger.log("EVENT TYPE: " + event.getClass().toString());
         PressScraper pressemitteilungen = new PressScraper();
-        String content = pressemitteilungen.scrape();
+        String content = pressemitteilungen.scrape().toXml();
         return content;
     }
 }

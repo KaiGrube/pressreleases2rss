@@ -23,8 +23,7 @@ public class RSSItem {
         this.imageSource = imageSource;
     }
 
-    @Override
-    public String toString() {
+    public String toXml() {
         return "<item>\n" +
                 "\t<title>" + StringEscapeUtils.escapeXml11(title) + "</title>\n" +
                 "\t<link>" + StringEscapeUtils.escapeXml11(link) + "</link>\n" +
