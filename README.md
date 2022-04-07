@@ -13,6 +13,7 @@ Provides a handler function to deploy it as a serverless lambda function at AWS.
 + Apache Commons (escaping)
 + AWS Lambda (serverless handler function)
 + Java Standard Libraries (date, nio)
++ Gradle
 
 ## 3. Notes
 + For local testing run 'LocalStarter'
