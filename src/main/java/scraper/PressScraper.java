@@ -1,13 +1,13 @@
 package scraper;
 
-import client.JSoupClient;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import rss.RSSChannel;
-import rss.RSSItem;
+import rss.Channel;
+import rss.Item;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -25,12 +25,24 @@ public class PressScraper {
     private static final String LINK = BASE_URL + "/pressemeldungen";
     private static final String TITLE = "Pressemitteilungen der Senatskanzlei Hamburg";
     private static final String DESCRIPTION = "https://www.hamburg.de/pressemeldungen";
+    private static final String userAgent =
+            "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2";
 
-    public RSSChannel scrape() {
-        JSoupClient client = new JSoupClient();
-        String content = client.fetchFromWeb(LINK);
+    public String fetchFromWeb(String url) {
+        try {
+            Connection connection = Jsoup.connect(url).userAgent(userAgent);
+            Document document = connection.get();
+            return document.html();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Channel scrape() {
+        String content = fetchFromWeb(LINK);
         Document document = Jsoup.parse(content);
-        List<RSSItem> rssItemList = new ArrayList<>();
+        List<Item> items = new ArrayList<>();
         Element pressReleasesCity = document.getElementsByClass("component").first();
         Elements articles = pressReleasesCity.getElementsByClass("col-xs-12 col-md-12 teaser teaser-thumb teaser-thumb-fhh ");
 
@@ -82,11 +94,9 @@ public class PressScraper {
             final String originalString = headline + pubDate + description;
             String guid = DigestUtils.sha256Hex(originalString);
 
-            // rssItem
-            rssItemList.add(new RSSItem(title, targetLink, description, guid, pubDate, source, imageSource));
+            items.add(new Item(title, targetLink, description, guid, pubDate, source, imageSource));
         }
-        RSSChannel rssChannel = new RSSChannel(TITLE, LINK, DESCRIPTION);
-        rssChannel.addItems(rssItemList);
-        return rssChannel;
+
+        return new Channel(TITLE, LINK, DESCRIPTION, items);
     }
 }
