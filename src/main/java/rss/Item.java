@@ -1,7 +1,7 @@
 package rss;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 
 // All elements of an item are optional, however at least one, either title or description must be present!
 // https://www.rssboard.org/rss-specification#hrelementsOfLtitemgt
