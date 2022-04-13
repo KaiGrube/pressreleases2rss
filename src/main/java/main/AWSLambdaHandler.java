@@ -1,6 +1,7 @@
 package main;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
@@ -13,8 +14,6 @@ import java.util.Optional;
 
 public class AWSLambdaHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
-    // todo: add logging
-
     private boolean isApiKeyValid(APIGatewayProxyRequestEvent requestEvent) {
         Optional<String> requestApiKey = Optional.ofNullable(requestEvent.getQueryStringParameters().get("API_KEY"));
         if (requestApiKey.isEmpty()) return false;
@@ -24,11 +23,13 @@ public class AWSLambdaHandler implements RequestHandler<APIGatewayProxyRequestEv
     }
 
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent requestEvent, final Context context) {
+        LambdaLogger logger = context.getLogger();
         Map<String, String> headers = new HashMap<>();
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent().withHeaders(headers);
         if (!isApiKeyValid(requestEvent)) {
             headers.put("Content-Type", "text/html");
             headers.put("X-Custom-Header", "text/html");
+            logger.log("Error 401 - Unauthorized request");
             return  response
                     .withStatusCode(401)
                     .withBody("<html>Error 401 - Unauthorized</html>");
