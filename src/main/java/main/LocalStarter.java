@@ -1,6 +1,6 @@
 package main;
 
-import rss.Channel;
+import rss.RSSFeed;
 import scraper.PressScraper;
 
 import java.io.File;
@@ -10,11 +10,11 @@ public class LocalStarter {
 
     private static final String PATH_NAME = System.getProperty("user.dir")
             + FileSystems.getDefault().getSeparator()
-            + "channel.xml";
+            + "pressreleases-example-output.xml";
 
     public static void main(String[] args) {
-        Channel channel = new PressScraper().scrape();
-        Marshaller.marshallToString(channel).ifPresent(System.out::println);
-        Marshaller.marshallToFile(channel, new File(PATH_NAME));
+        RSSFeed rssFeed = new PressScraper().scrape();
+        Marshaller.marshallToString(rssFeed).ifPresent(System.out::println);
+        Marshaller.marshallToFile(rssFeed, new File(PATH_NAME));
     }
 }

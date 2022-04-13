@@ -4,7 +4,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import rss.Channel;
+import rss.RSSFeed;
 import scraper.PressScraper;
 
 import java.util.HashMap;
@@ -34,8 +34,8 @@ public class AWSLambdaHandler implements RequestHandler<APIGatewayProxyRequestEv
                     .withBody("<html>Error 401 - Unauthorized</html>");
         }
 
-        Channel channel = new PressScraper().scrape();
-        Optional<String> xmlContent = Marshaller.marshallToString(channel);
+        RSSFeed rssFeed = new PressScraper().scrape();
+        Optional<String> xmlContent = Marshaller.marshallToString(rssFeed);
         if (xmlContent.isEmpty()) {
             headers.put("Content-Type", "text/html");
             headers.put("X-Custom-Header", "text/html");

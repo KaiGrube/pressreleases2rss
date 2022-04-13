@@ -8,6 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import rss.Channel;
 import rss.Item;
+import rss.RSSFeed;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -40,7 +41,7 @@ public class PressScraper {
         }
     }
 
-    public Channel scrape() {
+    public RSSFeed scrape() {
         String content = fetchFromWeb(LINK);
         Document document = Jsoup.parse(content);
         List<Item> items = new ArrayList<>();
@@ -98,6 +99,7 @@ public class PressScraper {
             items.add(new Item(title, targetLink, description, guid, pubDate, source, imageSource));
         }
 
-        return new Channel(TITLE, LINK, DESCRIPTION, items);
+        Channel channel = new Channel(TITLE, LINK, DESCRIPTION, items);
+        return new RSSFeed(channel);
     }
 }
