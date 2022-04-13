@@ -11,6 +11,7 @@ Provides a handler function to deploy it as a serverless lambda function at AWS.
 + JAXB (map classes to xml)
 + Apache Commons (escaping)
 + AWS Lambda (serverless handler function)
++ AWS Secrets (API key validation)
 + Java Standard Libraries (date, nio)
 + Maven
 
