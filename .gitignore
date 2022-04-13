@@ -6,3 +6,5 @@
 /build&push2aws.sh
 /build/
 /target/
+/dependency-reduced-pom.xml
+/pressreleases2rss.iml

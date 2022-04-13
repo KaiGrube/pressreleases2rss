@@ -7,7 +7,7 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 // https://www.rssboard.org/rss-specification#hrelementsOfLtitemgt
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Item {
-    // todo: why must these fields have public modifier despite fields of channel do not?!
+
     public String title;
     public String link;
     public String description;
@@ -16,7 +16,7 @@ public class Item {
     public String source;
     public String imageSource; // no item element of rss 2.0
 
-    // public Item() {};  // todo: why does this class not need default constructor
+    public Item() {};
 
     public Item(String title, String link, String description, String guid, String pubDate, String source, String imageSource) {
         this.title = title;

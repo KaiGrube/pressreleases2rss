@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // scrapes press releases of senate of hamburg
+// todo: null checks
 public class PressScraper {
 
     private static final String BASE_URL = "https://www.hamburg.de";
